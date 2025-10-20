@@ -15,14 +15,14 @@ namespace ConsoleApp1
         -> (talán) lapokat csinálni mint a domi v fáljba mentés
         -> undo lehetőség
         -> adatok megjelenítése (pl. aktuális szín, ecset, háttérszín, stb)
-        -> alkalmazkodó keret az ablakhoz
+       pipa -> alkalmazkodó keret az ablakhoz
         -> akár több border lehetőség
         -> --------> alex egy buzi !!4! <-------- 
          */
         static void Main(string[] args)
         {
-            Console.SetWindowSize(120, 30);
-            Console.Title = "Paint in Console";
+            //Console.SetWindowSize(170, 50);
+            Console.Title = "Conint (Console Paint)";
             bool szinval = true;
             int szinbor = 0;
             char fj = ' ';
@@ -38,8 +38,38 @@ namespace ConsoleApp1
             bool yesstil = true;
             bool ybrush = true;
 
+
+            //max 225,60 min 120,30
+
+            Console.Write("_________               .__        __                                                                          \r\n\\_   ___ \\  ____   ____ |__| _____/  |_                                                                        \r\n/    \\  \\/ /  _ \\ /    \\|  |/    \\   __\\                                                                       \r\n\\     \\___(  <_> )   |  \\  |   |  \\  |                                                                         \r\n \\______  /\\____/|___|  /__|___|  /__|                                                                         \r\n        \\/            \\/        \\/                                                                             \r\n                    .___       ___.             ___ ___               __             .______________           \r\n  _____ _____     __| _/____   \\_ |__ ___.__.  /   |   \\ __ __  _____/  |_  ____   __| _/\\_   _____/______  ___\r\n /     \\\\__  \\   / __ |/ __ \\   | __ <   |  | /    ~    \\  |  \\/    \\   __\\/ __ \\ / __ |  |    __)/  _ \\  \\/  /\r\n|  Y Y  \\/ __ \\_/ /_/ \\  ___/   | \\_\\ \\___  | \\    Y    /  |  /   |  \\  | \\  ___// /_/ |  |     \\(  <_> >    < \r\n|__|_|  (____  /\\____ |\\___  >  |___  / ____|  \\___|_  /|____/|___|  /__|  \\___  >____ |  \\___  / \\____/__/\\_ \\\r\n      \\/     \\/      \\/    \\/       \\/\\/             \\/            \\/          \\/     \\/      \\/             \\/");
+
+            Console.WriteLine();
+
+            Console.Write("Milyen hosszú és magas legyen a cmd?(vesszővel elválasztva, max:225,60 - min:120,30): ");
+            while (true)
+            {
+
+                string[] scale = Console.ReadLine()!.Split(',');
+
+                if (int.Parse(scale[0]) > 225 && int.Parse(scale[1]) > 60)
+                {
+                    Console.Write("Az értékek túl nagyok, az ablak nem lehet nagyobb mint 225x60! Adj meg kisebb értékeket!: ");
+                }
+                else if (int.Parse(scale[0]) < 120 && int.Parse(scale[1]) < 30)
+                {
+                    Console.Write("Az értékek túl kicsik, az ablak nem lehet kisebb mint 120x30! Adj meg nagyobb értékeket!: ");
+                }
+                else
+                {
+                    Console.SetWindowSize(int.Parse(scale[0]), int.Parse(scale[1]));
+                    break;
+                }
+            }
+
+            Console.WriteLine();
+
             Console.WriteLine($"Console magassága: {Console.WindowHeight}, szélessége: {Console.WindowWidth}");
-            
+
             Console.WriteLine();
 
             while (szinval)
@@ -173,7 +203,7 @@ namespace ConsoleApp1
                         {
                             Console.Write(fb);
                         }
-                        else if (i == 0 && j == Console.WindowWidth - 20)
+                        else if (i == 0 && j == Console.WindowWidth - 30)
                         {
                             Console.Write(mhv);
                         }
@@ -181,7 +211,7 @@ namespace ConsoleApp1
                         {
                             Console.Write(lb);
                         }
-                        else if (i == Console.WindowHeight - 1 && j == Console.WindowWidth - 20)
+                        else if (i == Console.WindowHeight - 1 && j == Console.WindowWidth - 30)
                         {
                             Console.Write(mvv);
                         }
@@ -190,7 +220,7 @@ namespace ConsoleApp1
                             Console.Write(mv);
                         }
                     }
-                    else if (j == 0 || j == Console.WindowWidth - 20)
+                    else if (j == 0 || j == Console.WindowWidth - 30)
                     {
                         Console.Write(hv);
                     }
@@ -207,7 +237,7 @@ namespace ConsoleApp1
 
                 }
             }
-            Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
+            Console.SetCursorPosition((Console.WindowWidth - 30) / 2, Console.WindowHeight / 2);
 
 
             Console.ForegroundColor = ConsoleColor.White;
@@ -215,6 +245,7 @@ namespace ConsoleApp1
             bool toggle = false;
             //int back_color = 0;
             int forg_color = 15;
+            bool nbrush = false;
             do
             {
                 var key = Console.ReadKey().Key;
@@ -238,6 +269,12 @@ namespace ConsoleApp1
                         }
                         Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
                         break;*/
+                    case ConsoleKey.Insert:
+                        nbrush = true;
+                        break;
+                    case ConsoleKey.Home:
+                        nbrush = false;
+                        break;
                     case ConsoleKey.Q:
                         toggle = true;
                         break;
@@ -275,8 +312,37 @@ namespace ConsoleApp1
                         }
                         else if (toggle == false)
                         {
-                            Console.Write(brush);
-                            Console.CursorLeft -= 2;
+                            if (nbrush == true)
+                            {
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.Write(brush);
+                                Console.CursorLeft++;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop--;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.Write(brush);
+                                Console.CursorLeft++;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop+=2;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.Write(brush);
+                                Console.CursorLeft++;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop--;
+                                Console.CursorLeft -= 2;
+                            }
+                            else
+                            {
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                            }
+                                
                         }
                         break;
                     case ConsoleKey.RightArrow:
@@ -331,7 +397,7 @@ namespace ConsoleApp1
                                     {
                                         Console.Write(fb);
                                     }
-                                    else if (i == 0 && j == Console.WindowWidth - 20)
+                                    else if (i == 0 && j == Console.WindowWidth - 30)
                                     {
                                         Console.Write(mhv);
                                     }
@@ -339,7 +405,7 @@ namespace ConsoleApp1
                                     {
                                         Console.Write(lb);
                                     }
-                                    else if (i == Console.WindowHeight - 1 && j == Console.WindowWidth - 20)
+                                    else if (i == Console.WindowHeight - 1 && j == Console.WindowWidth - 30)
                                     {
                                         Console.Write(mvv);
                                     }
@@ -348,7 +414,7 @@ namespace ConsoleApp1
                                         Console.Write(mv);
                                     }
                                 }
-                                else if (j == 0 || j == Console.WindowWidth - 20)
+                                else if (j == 0 || j == Console.WindowWidth - 30)
                                 {
                                     Console.Write(hv);
                                 }
@@ -366,7 +432,77 @@ namespace ConsoleApp1
                             }
                         }
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
+                        Console.SetCursorPosition((Console.WindowWidth - 30) / 2, Console.WindowHeight / 2);
+                        break;
+                    case ConsoleKey.End:
+                        Console.Clear();
+                        Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.WindowHeight / 2);
+                        Console.Write("Biztosan vissza szeretnél menni a menübe? Y/N: ");
+                        if (Console.ReadKey().Key == ConsoleKey.Y)
+                        {
+                            Console.Clear();
+                            Main(args);
+                            return;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = (ConsoleColor)szinbor;
+                            for (int i = 0; i < Console.WindowHeight; i++)
+                            {
+                                for (int j = 0; j < Console.WindowWidth; j++)
+                                {
+                                    if (i == 0 || i == Console.WindowHeight - 1)
+                                    {
+                                        if (i == 0 && j == 0)
+                                        {
+                                            Console.Write(fj);
+                                        }
+                                        else if (i == Console.WindowHeight - 1 && j == 0)
+                                        {
+                                            Console.Write(lj);
+                                        }
+                                        else if (i == 0 && j == Console.WindowWidth - 1)
+                                        {
+                                            Console.Write(fb);
+                                        }
+                                        else if (i == 0 && j == Console.WindowWidth - 30)
+                                        {
+                                            Console.Write(mhv);
+                                        }
+                                        else if (i == Console.WindowHeight - 1 && j == Console.WindowWidth - 1)
+                                        {
+                                            Console.Write(lb);
+                                        }
+                                        else if (i == Console.WindowHeight - 1 && j == Console.WindowWidth - 30)
+                                        {
+                                            Console.Write(mvv);
+                                        }
+                                        else
+                                        {
+                                            Console.Write(mv);
+                                        }
+                                    }
+                                    else if (j == 0 || j == Console.WindowWidth - 30)
+                                    {
+                                        Console.Write(hv);
+                                    }
+                                    else if (j == 0 || j == Console.WindowWidth - 1)
+                                    {
+                                        Console.Write(hv);
+                                    }
+
+                                    else
+                                    {
+                                        Console.Write(' ');
+                                    }
+
+
+                                }
+                            }
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.SetCursorPosition((Console.WindowWidth - 30) / 2, Console.WindowHeight / 2);
+                        }
                         break;
 
                     
