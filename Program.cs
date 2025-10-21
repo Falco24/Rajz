@@ -243,32 +243,84 @@ namespace ConsoleApp1
             Console.ForegroundColor = ConsoleColor.White;
 
             bool toggle = false;
-            //int back_color = 0;
+            int back_color = 0;
             int forg_color = 15;
             bool nbrush = false;
             do
             {
                 var key = Console.ReadKey().Key;
                 switch (key)
-                {/*
+                {
                     case ConsoleKey.B:
-                        Console.SetCursorPosition(0, 0);
-                        back_color++;
-                        for (int i = 0; i < Console.WindowHeight; i++)
+                        if (back_color <= 15)
                         {
-                            for (int j = 0; j < Console.WindowWidth; j++)
+                            Console.Clear();
+                            Console.BackgroundColor = (ConsoleColor)back_color;
+                            Console.Clear();
+                            back_color++;
+                            Console.ForegroundColor = (ConsoleColor)szinbor;
+                            for (int i = 0; i < Console.WindowHeight; i++)
                             {
-                                if (back_color > 15)
+                                for (int j = 0; j < Console.WindowWidth; j++)
                                 {
-                                    back_color = 0;
+                                    if (i == 0 || i == Console.WindowHeight - 1)
+                                    {
+                                        if (i == 0 && j == 0)
+                                        {
+                                            Console.Write(fj);
+                                        }
+                                        else if (i == Console.WindowHeight - 1 && j == 0)
+                                        {
+                                            Console.Write(lj);
+                                        }
+                                        else if (i == 0 && j == Console.WindowWidth - 1)
+                                        {
+                                            Console.Write(fb);
+                                        }
+                                        else if (i == 0 && j == Console.WindowWidth - 30)
+                                        {
+                                            Console.Write(mhv);
+                                        }
+                                        else if (i == Console.WindowHeight - 1 && j == Console.WindowWidth - 1)
+                                        {
+                                            Console.Write(lb);
+                                        }
+                                        else if (i == Console.WindowHeight - 1 && j == Console.WindowWidth - 30)
+                                        {
+                                            Console.Write(mvv);
+                                        }
+                                        else
+                                        {
+                                            Console.Write(mv);
+                                        }
+                                    }
+                                    else if (j == 0 || j == Console.WindowWidth - 30)
+                                    {
+                                        Console.Write(hv);
+                                    }
+                                    else if (j == 0 || j == Console.WindowWidth - 1)
+                                    {
+                                        Console.Write(hv);
+                                    }
+
+                                    else
+                                    {
+                                        Console.Write(' ');
+                                    }
+
+
                                 }
-                                
-                                Console.BackgroundColor = (ConsoleColor)back_color;
-                                Console.Write('█');
                             }
+                            Console.SetCursorPosition((Console.WindowWidth - 30) / 2, Console.WindowHeight / 2);
+                            
+                            Console.ForegroundColor = (ConsoleColor)forg_color;
                         }
-                        Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
-                        break;*/
+                        else
+                        {
+                            back_color = 0;
+                            Console.BackgroundColor = (ConsoleColor)back_color;
+                        }
+                        break;
                     case ConsoleKey.Insert:
                         nbrush = true;
                         break;
@@ -288,9 +340,40 @@ namespace ConsoleApp1
                         }
                         else if (toggle == false)
                         {
-                            Console.Write(brush);
-                            Console.CursorTop++;
-                            Console.CursorLeft--;
+                            if (nbrush == true)
+                            {
+                                Console.CursorLeft--;
+                                Console.Write(brush);
+                                Console.Write(brush);
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop++;
+                                Console.CursorLeft--;
+                                Console.Write(brush);
+                                Console.Write(brush);
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop++;
+                                Console.CursorLeft--;
+                                if (!(Console.CursorTop >= Console.WindowHeight - 2))
+                                {
+                                    Console.Write(brush);
+                                    Console.Write(brush);
+                                    Console.Write(brush);
+                                    Console.CursorLeft -= 2;
+                                }
+                                else
+                                {
+                                    Console.CursorLeft++;
+                                }
+                            }
+                            else
+                            {
+                                Console.Write(brush);
+                                Console.CursorTop++;
+                                Console.CursorLeft--;
+                            }
+                                
                         }
                         break;
                     case ConsoleKey.UpArrow:
@@ -300,9 +383,37 @@ namespace ConsoleApp1
                         }
                         else if (toggle == false)
                         {
-                            Console.Write(brush);
-                            Console.CursorTop--;
-                            Console.CursorLeft--;
+                            if (nbrush == true)
+                            {
+                                Console.CursorLeft--;
+                                Console.Write(brush);
+                                Console.Write(brush);
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop--;
+                                Console.CursorLeft--;
+                                Console.Write(brush);
+                                Console.Write(brush);
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                if (!(Console.CursorTop <= 2))
+                                {
+                                    Console.CursorTop--;
+                                    Console.CursorLeft--;
+                                    Console.Write(brush);
+                                    Console.Write(brush);
+                                    Console.Write(brush);
+                                    Console.CursorLeft -= 2;
+                                }
+                                
+                            }
+                            else
+                            {
+                                Console.Write(brush);
+                                Console.CursorLeft--;
+                                Console.CursorTop--;
+                            }
+                                
                         }
                         break;
                     case ConsoleKey.LeftArrow:
@@ -335,7 +446,7 @@ namespace ConsoleApp1
                                 Console.Write(brush);
                                 Console.CursorLeft -= 2;
                                 Console.CursorTop--;
-                                Console.CursorLeft -= 2;
+                                Console.CursorLeft --;
                             }
                             else
                             {
@@ -348,20 +459,52 @@ namespace ConsoleApp1
                     case ConsoleKey.RightArrow:
                         if (toggle != true)
                         {
-                            Console.Write(brush);
+                            if (nbrush == true)
+                            {
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.Write(brush);
+                                Console.CursorLeft++;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop--;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.Write(brush);
+                                Console.CursorLeft++;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop+=2;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.Write(brush);
+                                Console.CursorLeft++;
+                                Console.Write(brush);
+                                Console.CursorLeft -= 2;
+                                Console.CursorTop--;
+                                Console.CursorLeft++;
+                                if (Console.CursorLeft >= Console.WindowWidth - 31)
+                                {
+                                    Console.CursorLeft--;
+                                }
+                            }
+                            else
+                            {
+                                Console.Write(brush);
+                            }
+                            
                         }
                         else
                         {
                             Console.CursorLeft++;
                         }
                         break;
-                    case ConsoleKey.U:
+                    case ConsoleKey.PageUp:
                         
                         if (forg_color >= 0)
                         {
                             Console.ForegroundColor = (ConsoleColor)forg_color;
                             forg_color--;
-                            Console.CursorLeft--;
                         }
                         else
                         {
@@ -507,26 +650,29 @@ namespace ConsoleApp1
 
                     
                 }
-
-                if (Console.CursorLeft <= 0)
-                {
-                    Console.SetCursorPosition(2, Console.CursorTop);
-                }
-                else if (Console.CursorLeft >= Console.WindowWidth - 1)
-                {
-                    Console.SetCursorPosition(Console.WindowWidth - 3, Console.CursorTop);
-                }
-                else if (Console.CursorTop <= 0)
-                {
-                    Console.SetCursorPosition(Console.CursorLeft, 2);
-                }
-                else if (Console.CursorTop >= Console.WindowHeight - 1)
-                {
-                    Console.SetCursorPosition(Console.CursorLeft, Console.WindowHeight - 3);
-                }
+                ClampCursor(nbrush);
 
             } while (Console.ReadKey().Key != ConsoleKey.Escape);
 
+        }
+
+        static void ClampCursor(bool nbrush)
+        {
+            int leftMin = 2;
+            int leftMax = nbrush ? Console.WindowWidth - 31 : Console.WindowWidth - 31;
+            int topMin = nbrush ? 2 : 1;
+            int topMax = nbrush ? Console.WindowHeight - 3 : Console.WindowHeight - 2;
+
+            if (leftMax < leftMin) leftMax = leftMin;
+            if (topMax < topMin) topMax = topMin;
+
+            int left = Math.Clamp(Console.CursorLeft, leftMin, leftMax);
+            int top = Math.Clamp(Console.CursorTop, topMin, topMax);
+
+            if (left != Console.CursorLeft || top != Console.CursorTop)
+            {
+                Console.SetCursorPosition(left, top);
+            }
         }
     }
 }
