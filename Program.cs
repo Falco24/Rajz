@@ -50,19 +50,26 @@ namespace ConsoleApp1
             {
 
                 string[] scale = Console.ReadLine()!.Split(',');
+                try
+                {
+                    if (int.Parse(scale[0]) > 225 && int.Parse(scale[1]) > 60)
+                    {
+                        Console.Write("Az értékek túl nagyok, az ablak nem lehet nagyobb mint 225x60! Adj meg kisebb értékeket!: ");
+                    }
+                    else if (int.Parse(scale[0]) < 120 && int.Parse(scale[1]) < 30)
+                    {
+                        Console.Write("Az értékek túl kicsik, az ablak nem lehet kisebb mint 120x30! Adj meg nagyobb értékeket!: ");
+                    }
+                    else
+                    {
+                        Console.SetWindowSize(int.Parse(scale[0]), int.Parse(scale[1]));
+                        break;
+                    }
 
-                if (int.Parse(scale[0]) > 225 && int.Parse(scale[1]) > 60)
-                {
-                    Console.Write("Az értékek túl nagyok, az ablak nem lehet nagyobb mint 225x60! Adj meg kisebb értékeket!: ");
                 }
-                else if (int.Parse(scale[0]) < 120 && int.Parse(scale[1]) < 30)
+                catch (Exception)
                 {
-                    Console.Write("Az értékek túl kicsik, az ablak nem lehet kisebb mint 120x30! Adj meg nagyobb értékeket!: ");
-                }
-                else
-                {
-                    Console.SetWindowSize(int.Parse(scale[0]), int.Parse(scale[1]));
-                    break;
+                    Console.Write("Hiba történt az értékek beállítása közben, kérlek csak számokat és vesszőt használj!: ");
                 }
             }
 
@@ -72,101 +79,126 @@ namespace ConsoleApp1
 
             Console.WriteLine();
 
+            Console.Write("A keretnek milyen szint szeretnél?(kérlek számot írj be): ");
             while (szinval)
             {
-                Console.Write("A keretnek milyen szint szeretnél?(kérlek számot írj be): ");
-                szinbor = int.Parse(Console.ReadLine()!);
-                if (szinbor < 0 || szinbor > 15)
+                try
                 {
-                    Console.Write("Kérlek 0 és 15 közötti számot adj meg!");
+                    szinbor = int.Parse(Console.ReadLine()!);
+                    if (szinbor < 0 || szinbor > 15)
+                    {
+                        Console.Write("Kérlek 0 és 15 közötti számot adj meg!");
+                    }
+                    else
+                    {
+                        szinval = false;
+                    }
+
                 }
-                else
+                catch (Exception)
                 {
-                    szinval = false;
+                    Console.Write("Hiba történt a szín beállítása közben, kérlek csak számokat használj!: ");
                 }
             }
             Console.WriteLine();
+               
+            Console.Write("Milyen stílusú legyen a keret?(─(0) vagy ═(1), a megfelelő számmal válassz): ");
             while (yesstil)
             {
-                Console.Write("Milyen stílusú legyen a keret?(─(0) vagy ═(1), a megfelelő számmal válassz): ");
-                stilus = int.Parse(Console.ReadLine()!);
-                if (stilus == 0)
+                try
                 {
-                    fj = '┌';
-                    fb = '┐';
-                    lj = '└';
-                    lb = '┘';
-                    mv = '─';
-                    hv = '│';
-                    mhv = '┬';
-                    mvv = '┴';
-                    yesstil = false;
+                    stilus = int.Parse(Console.ReadLine()!);
+                    if (stilus == 0)
+                    {
+                        fj = '┌';
+                        fb = '┐';
+                        lj = '└';
+                        lb = '┘';
+                        mv = '─';
+                        hv = '│';
+                        mhv = '┬';
+                        mvv = '┴';
+                        yesstil = false;
+                    }
+                    else if (stilus == 1)
+                    {
+                        fj = '╔';
+                        fb = '╗';
+                        lj = '╚';
+                        lb = '╝';
+                        mv = '═';
+                        hv = '║';
+                        mhv = '╦';
+                        mvv = '╩';
+                        yesstil = false;
+                    }
+                    else if (stilus != 0 && stilus != 1)
+                    {
+                        Console.Write("Nem jó számot adtál meg! Próbáld újra!: ");
+                    }
+
                 }
-                else if (stilus == 1)
+                catch (Exception)
                 {
-                    fj = '╔';
-                    fb = '╗';
-                    lj = '╚';
-                    lb = '╝';
-                    mv = '═';
-                    hv = '║';
-                    mhv = '╦';
-                    mvv = '╩';
-                    yesstil = false;
-                }
-                else if (stilus != 0 && stilus != 1)
-                {
-                    Console.WriteLine("Nem jó számot adtál meg!");
+                    Console.Write("Hiba történt a stílus beállítása közben, kérlek csak 0 vagy 1 számot adj meg!: ");
                 }
             }
 
             Console.WriteLine();
 
+            Console.Write("Kérlek válassz egy karaktert ecsetnek 1-9 között(█,░,▒,▓,■,▲,►,▼,◄): ");
             while (ybrush)
             {
-                Console.Write("Kérlek válassz egy karaktert ecsetnek 1-9 között(█,░,▒,▓,■,▲,►,▼,◄): ");
-                int brush_choice = int.Parse(Console.ReadLine()!);
-                switch (brush_choice)
+                try
                 {
-                    case 1:
-                        brush = '█';
-                        ybrush = false;
-                        break;
-                    case 2:
-                        brush = '░';
-                        ybrush = false;
-                        break;
-                    case 3:
-                        brush = '▒';
-                        ybrush = false;
-                        break;
-                    case 4:
-                        brush = '▓';
-                        ybrush = false;
-                        break;
-                    case 5:
-                        brush = '■';
-                        ybrush = false;
-                        break;
-                    case 6:
-                        brush = '▲';
-                        ybrush = false;
-                        break;
-                    case 7:
-                        brush = '►';
-                        ybrush = false;
-                        break;
-                    case 8:
-                        brush = '▼';
-                        ybrush = false;
-                        break;
-                    case 9:
-                        brush = '◄';
-                        ybrush = false;
-                        break;
-                    default:
-                        Console.WriteLine("Nem jó számot adtál meg!");
-                        break;
+
+                    int brush_choice = int.Parse(Console.ReadLine()!);
+                    switch (brush_choice)
+                    {
+                        case 1:
+                            brush = '█';
+                            ybrush = false;
+                            break;
+                        case 2:
+                            brush = '░';
+                            ybrush = false;
+                            break;
+                        case 3:
+                            brush = '▒';
+                            ybrush = false;
+                            break;
+                        case 4:
+                            brush = '▓';
+                            ybrush = false;
+                            break;
+                        case 5:
+                            brush = '■';
+                            ybrush = false;
+                            break;
+                        case 6:
+                            brush = '▲';
+                            ybrush = false;
+                            break;
+                        case 7:
+                            brush = '►';
+                            ybrush = false;
+                            break;
+                        case 8:
+                            brush = '▼';
+                            ybrush = false;
+                            break;
+                        case 9:
+                            brush = '◄';
+                            ybrush = false;
+                            break;
+                        default:
+                            Console.WriteLine("Nem jó számot adtál meg!");
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.Write("Hiba történt az ecset beállítása közben, kérlek csak 1-9 közötti számot adj meg!: ");
                 }
             }
 
@@ -246,6 +278,7 @@ namespace ConsoleApp1
             int back_color = 0;
             int forg_color = 15;
             bool nbrush = false;
+            CreateUI();
             do
             {
                 var key = Console.ReadKey().Key;
@@ -575,6 +608,7 @@ namespace ConsoleApp1
                             }
                         }
                         Console.ForegroundColor = ConsoleColor.White;
+                        CreateUI();
                         Console.SetCursorPosition((Console.WindowWidth - 30) / 2, Console.WindowHeight / 2);
                         break;
                     case ConsoleKey.End:
@@ -651,6 +685,7 @@ namespace ConsoleApp1
                     
                 }
                 ClampCursor(nbrush);
+                
 
             } while (Console.ReadKey().Key != ConsoleKey.Escape);
 
@@ -674,5 +709,41 @@ namespace ConsoleApp1
                 Console.SetCursorPosition(left, top);
             }
         }
+
+        static void CreateUI()
+        { //Rajzolásnál lévő jobb oldali UIra
+            Console.SetCursorPosition(Console.WindowWidth - 28, 1);
+            Console.WriteLine("->Conint - Console Paint<-");
+            Console.SetCursorPosition(Console.WindowWidth - 28, 2);
+            Console.WriteLine("--------------------------");
+            Console.SetCursorPosition(Console.WindowWidth - 28, 3);
+            Console.WriteLine("Vezérlése a programnak");
+            Console.SetCursorPosition(Console.WindowWidth - 28, 4);
+            Console.WriteLine("--------------------------");
+            Console.SetCursorPosition(Console.WindowWidth - 28, 5);
+            Console.WriteLine("Insert - Nagyobb ecset ON");
+            Console.SetCursorPosition(Console.WindowWidth - 28, 6);
+            Console.WriteLine("Home - Nagyobb ecset OFF");
+            Console.SetCursorPosition(Console.WindowWidth - 28, 7);
+            Console.WriteLine("Q - Ecset OFF");
+            Console.SetCursorPosition(Console.WindowWidth - 28, 8);
+            Console.WriteLine("R - Ecset ON");
+            Console.SetCursorPosition(Console.WindowWidth - 28, 9);
+            Console.WriteLine("Nyílak - Ecset mozgatása");
+            Console.SetCursorPosition((Console.WindowWidth - 30) / 2, Console.WindowHeight / 2);
+        }
     }
 }
+
+/* File.ReadAllLines(path)
+   File.WriteAllLines (path, content)
+   ----------------------------------
+   File.Exist
+   Directory
+   mentéshez adatok segíthetnek (char,color,x,y;...,...;) splitelni mondjuk vesszőnél
+   ----------------------------------
+   Dictionary<K,T> Kulcs és Érték pár, tupplet célszerű használni kulcsnak és értéknek is
+   ----------------------------------
+   HashSet<T> -- csak fun fact
+   Tupple meg említendő, de fontos tudni az arrayt meg listet is
+*/
